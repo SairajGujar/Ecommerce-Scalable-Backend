@@ -1,0 +1,104 @@
+version: "3.8" # Updated to a recommended version for compatibility
+
+services:
+  user:
+    build: ./user # Dockerfile should be in ./user
+    ports:
+      - 3001:3001
+    environment:
+      - MONGO_URI=${DATABASE_URI}
+      - JWT_SECRET=${JWT_SECRET}
+    networks:
+      - ecommerce-network
+    depends_on:
+      - mongo
+
+  product-service:
+    build: ./product-service # Dockerfile should be in ./product-service
+    ports:
+      - 3002:3002
+    environment:
+      - MONGO_URI=${DATABASE_URI}
+      - JWT_SECRET=${JWT_SECRET}
+    networks:
+      - ecommerce-network
+    depends_on:
+      - mongo
+
+  shopping-cart:
+    build: ./shopping-cart # Dockerfile should be in ./shopping-cart
+    ports:
+      - 3003:3003
+    environment:
+      - MONGO_URI=${DATABASE_URI}
+      - JWT_SECRET=${JWT_SECRET}
+    networks:
+      - ecommerce-network
+    depends_on:
+      - mongo
+      - product-service
+
+  order-service:
+    build: ./order-service # Dockerfile should be in ./order-service
+    ports:
+      - 3004:3004
+    environment:
+      - MONGO_URI=${DATABASE_URI}
+      - JWT_SECRET=${JWT_SECRET}
+    networks:
+      - ecommerce-network
+    depends_on:
+      - mongo
+      - product-service
+
+  notification-service:
+    build: ./notification-service # Dockerfile should be in ./notification-service
+    ports:
+      - 3005:3005
+    environment:
+      - GMAIL=${GMAIL}
+      - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
+    networks:
+      - ecommerce-network
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - ecommerce-network
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8080:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - ME_CONFIG_MONGODB_SERVER=mongo
+    networks:
+      - ecommerce-network
+
+  gateway:
+    build: ./gateway # Dockerfile should be in ./gateway
+    ports:
+      - "3000:3000"
+    networks:
+      - ecommerce-network
+    depends_on:
+      - user
+      - product-service
+      - shopping-cart
+      - order-service
+
+volumes:
+  mongo-data:
+
+networks:
+  ecommerce-network:
+    driver: bridge
