@@ -1,0 +1,37 @@
+// filepath: /C:/Users/techn/OneDrive/Desktop/Ecom-Scalable/.gitignore
+# Ignore the main .env file in the root directory
+.env
+
+# Ignore node_modules folders in all microservices
+*/node_modules/
+
+# Ignore logs
+logs/
+*.log
+*.log.*
+debug.log
+
+# Ignore build and output directories
+*/build/
+*/dist/
+*/out/
+*/coverage/
+*.tsbuildinfo
+
+# Ignore Docker-related files
+docker-compose.override.yml
+.docker/
+*.pid
+
+# Ignore MongoDB data
+data/
+mongo-data/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE/Editor settings
+.vscode/
+.idea/
+*.swp
