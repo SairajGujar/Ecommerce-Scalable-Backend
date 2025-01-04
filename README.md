@@ -44,7 +44,7 @@ This repository contains the backend implementation for a scalable ecommerce app
 
 ## Architecture
 
-The application follows a microservices architecture, with each service running independently and communicating through HTTP. Nginx is configured as an API gateway to route incoming requests to the respective services. Docker is used to containerize each service, ensuring consistency across different environments.
+The application follows a microservices architecture, with each service running independently and communicating through HTTP. Docker is used to containerize each service, ensuring consistency across different environments.
 
 ## Prerequisites
 
