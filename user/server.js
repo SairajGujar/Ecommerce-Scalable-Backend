@@ -9,7 +9,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 app.use('/', userRoute)
 
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.USER_PORT, ()=>{
     console.log(`app listening on ${process.env.PORT}`);
 })
 dbConnect()

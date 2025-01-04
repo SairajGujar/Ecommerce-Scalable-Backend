@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 app.use('/', authMiddleware, orderRoutes)
 
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.ORDER_PORT, ()=>{
     console.log(`app listening on ${process.env.PORT}`);
 })
 dbConnect()

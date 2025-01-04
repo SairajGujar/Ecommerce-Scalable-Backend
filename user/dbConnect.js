@@ -1,7 +1,7 @@
 import { connect } from "mongoose";
 
 const dbConnect = async() => {
-  connect(process.env.DATABASE_URI)
+  connect(process.env.MONGO_USER_URI)
     .then(() => {
       console.log("connected to database");
     })

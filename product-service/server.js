@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 app.use('/', authMiddleware, productRoute)
 
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.PRODUCT_PORT, ()=>{
     console.log(`app listening on ${process.env.PORT}`);
 })
 dbConnect()

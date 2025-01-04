@@ -11,6 +11,8 @@ export async function login(req, res){
         const payloadUser = {
             user
         }
+        console.log(process.env.JWT_SECRET)
+        console.log(process.env.DATABASE_URI)
         const token = jwt.sign(payloadUser, process.env.JWT_SECRET);
         return res.status(200).json({message:'login successful', token});
 

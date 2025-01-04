@@ -6,8 +6,9 @@ services:
     ports:
       - 3001:3001
     environment:
-      - MONGO_URI=${DATABASE_URI}
+      - MONGO_USER_URI=${MONGO_USER_URI}
       - JWT_SECRET=${JWT_SECRET}
+      - USER_PORT=${USER_PORT}
     networks:
       - ecommerce-network
     depends_on:
@@ -18,8 +19,9 @@ services:
     ports:
       - 3002:3002
     environment:
-      - MONGO_URI=${DATABASE_URI}
+      - MONGO_PRODUCT_URI=${MONGO_PRODUCT_URI}
       - JWT_SECRET=${JWT_SECRET}
+      - PRODUCT_PORT=${PRODUCT_PORT}
     networks:
       - ecommerce-network
     depends_on:
@@ -30,8 +32,9 @@ services:
     ports:
       - 3003:3003
     environment:
-      - MONGO_URI=${DATABASE_URI}
+      - MONGO_CART_URI=${MONGO_CART_URI}
       - JWT_SECRET=${JWT_SECRET}
+      - CART_PORT=${CART_PORT}
     networks:
       - ecommerce-network
     depends_on:
@@ -43,8 +46,9 @@ services:
     ports:
       - 3004:3004
     environment:
-      - MONGO_URI=${DATABASE_URI}
+      - MONGO_ORDER_URI=${MONGO_ORDER_URI}
       - JWT_SECRET=${JWT_SECRET}
+      - ORDER_PORT=${ORDER_PORT}
     networks:
       - ecommerce-network
     depends_on:
@@ -52,12 +56,13 @@ services:
       - product-service
 
   notification-service:
-    build: ./notification-service # Dockerfile should be in ./notification-service
+    build: ./notification-service 
     ports:
       - 3005:3005
     environment:
       - GMAIL=${GMAIL}
       - GMAIL_APP_PASSWORD=${GMAIL_APP_PASSWORD}
+      - NOTIFICATION_PORT=${NOTIFICATION_PORT}
     networks:
       - ecommerce-network
 
@@ -85,7 +90,7 @@ services:
       - ecommerce-network
 
   gateway:
-    build: ./gateway # Dockerfile should be in ./gateway
+    build: ./gateway 
     ports:
       - "3000:3000"
     networks:

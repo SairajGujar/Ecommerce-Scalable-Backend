@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 app.use('/', authMiddleware, cartRoute)
 
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.CART_PORT, ()=>{
     console.log(`app listening on ${process.env.PORT}`);
 })
 dbConnect()

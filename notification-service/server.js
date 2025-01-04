@@ -12,7 +12,7 @@ app.use('/', authMiddleware, notificationRoute)
 
 
 
-app.listen(process.env.PORT, ()=>{
+app.listen(process.env.NOTIFICATION_PORT, ()=>{
     console.log(`app listening on ${process.env.PORT}`);
 })
 
